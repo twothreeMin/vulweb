@@ -57,7 +57,8 @@ class BoardApiControllerTest {
         final String url = "/api/articles";
         final String title = "title";
         final String content = "content";
-        final AddArticleRequest userRequest = new AddArticleRequest(title, content);
+        final String author = "author";
+        final AddArticleRequest userRequest = new AddArticleRequest(title, content, author);
 
         final String requestBody = objectMapper.writeValueAsString(userRequest);
 
@@ -83,10 +84,12 @@ class BoardApiControllerTest {
         final String url = "/api/articles";
         final String title = "title";
         final String content = "content";
+        final String author = "author";
 
         boardRepository.save(Article.builder()
                 .title(title)
                 .content(content)
+                .author(author)
                 .build());
 
         //when
@@ -108,10 +111,12 @@ class BoardApiControllerTest {
         final String url = "/api/article/{id}";
         final String title = "title";
         final String content = "content";
+        final String author = "author";
 
         Article savedArticle = boardRepository.save(Article.builder()
                 .title(title)
                 .content(content)
+                .author(author)
                 .build());
 
         //when
@@ -131,10 +136,12 @@ class BoardApiControllerTest {
         final String url = "/api/article/delete/{id}";
         final String title = "title";
         final String content = "content";
+        final String author = "author";
 
         Article savedArticle = boardRepository.save(Article.builder()
                 .title(title)
                 .content(content)
+                .author(author)
                 .build());
 
         //when
@@ -154,10 +161,12 @@ class BoardApiControllerTest {
         final String url = "/api/article/update/{id}";
         final String title = "title";
         final String content = "content";
+        final String author = "author";
 
         Article savedArticle = boardRepository.save(Article.builder()
                 .title(title)
                 .content(content)
+                .author(author)
                 .build());
 
         final String newTitle = "new Title";
