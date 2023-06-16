@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import smvulweb.vulweb.ErrorResponse;
 import smvulweb.vulweb.domain.Article;
 import smvulweb.vulweb.dto.AddArticleRequest;
 import smvulweb.vulweb.dto.ArticleResponse;
@@ -50,11 +51,17 @@ public class BoardApiController {
     }
 
     @GetMapping("api/article/{id}")
-    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {
-        Article article = boardService.findById(id);
-
-        return ResponseEntity.ok()
-                .body(new ArticleResponse(article));
+    public ResponseEntity<?> findArticle(@PathVariable long id) {
+        try {
+            Article article = boardService.findById(id);
+            return ResponseEntity.ok().body(new ArticleResponse(article));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("페이지가 없음"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("서버 오류"));
+        }
     }
 
     @GetMapping("api/article/delete/{id}")
