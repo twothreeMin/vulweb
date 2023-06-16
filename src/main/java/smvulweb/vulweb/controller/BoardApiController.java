@@ -10,7 +10,10 @@ import smvulweb.vulweb.dto.ArticleResponse;
 import smvulweb.vulweb.dto.UpdateArticleRequest;
 import smvulweb.vulweb.service.BoardService;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,6 +21,15 @@ public class BoardApiController {
 
     private final BoardService boardService;
 
+    @GetMapping("/test")
+    public Map<String, Object> testHandler() {
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("SUCCESS", true);
+        res.put("SUCCESS_TEXT", "Hello SpringBoot/React");
+
+        return res;
+    }
     @PostMapping("/api/articles")
     public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
         Article savedArticle = boardService.save(request);
