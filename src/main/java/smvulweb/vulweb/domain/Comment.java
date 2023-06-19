@@ -7,13 +7,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import smvulweb.vulweb.dto.ArticleResponse;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 public class Comment {
 
     @Id
@@ -29,22 +32,20 @@ public class Comment {
 
     @Column(name = "created_date")
     @CreatedDate
-    private String createdDate;
+    private LocalDateTime createdDate;
 
     @Column(name = "modified_date")
     @LastModifiedDate
-    private String modifiedDate;
+    private LocalDateTime modifiedDate;
 
     @ManyToOne
     @JoinColumn(name = "article_id")
     private Article article;
 
     @Builder
-    public Comment(String nickname, String comment, String createdDate, String modifiedDate, Article article) {
+    public Comment(String nickname, String comment, Article article) {
         this.nickname = nickname;
         this.comment = comment;
-        this.createdDate = createdDate;
-        this.modifiedDate = modifiedDate;
         this.article = article;
     }
 }
