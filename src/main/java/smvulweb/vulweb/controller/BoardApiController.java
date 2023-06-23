@@ -50,7 +50,7 @@ public class BoardApiController {
                 .body(articles);
     }
 
-    @GetMapping("api/article/{id}")
+    @GetMapping("/api/article/{id}")
     public ResponseEntity<?> findArticle(@PathVariable long id) {
         try {
             Article article = boardService.findById(id);
@@ -64,7 +64,7 @@ public class BoardApiController {
         }
     }
 
-    @GetMapping("api/article/delete/{id}")
+    @GetMapping("/api/article/delete/{id}")
     public ResponseEntity<Void> deleteArticle(@PathVariable long id) {
         boardService.delete(id);
 
@@ -72,7 +72,7 @@ public class BoardApiController {
                 .build();
     }
 
-    @GetMapping("api/article/update/{id}")
+    @GetMapping("/api/article/update/{id}")
     public ResponseEntity<Article> updateArticle(@PathVariable long id,
                                                  @RequestBody UpdateArticleRequest request) {
         Article updatedArticle = boardService.update(id, request);

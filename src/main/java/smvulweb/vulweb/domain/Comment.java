@@ -48,4 +48,8 @@ public class Comment {
         this.comment = comment;
         this.article = article;
     }
+
+    public void update(String comment) {
+        this.comment = comment;
+    }
 }

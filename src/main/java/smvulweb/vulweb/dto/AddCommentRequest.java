@@ -4,9 +4,6 @@ import lombok.*;
 import smvulweb.vulweb.domain.Article;
 import smvulweb.vulweb.domain.Comment;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

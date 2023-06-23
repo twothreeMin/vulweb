@@ -15,17 +15,20 @@ import org.springframework.web.context.WebApplicationContext;
 import smvulweb.vulweb.domain.Article;
 import smvulweb.vulweb.domain.Comment;
 import smvulweb.vulweb.dto.AddCommentRequest;
+import smvulweb.vulweb.dto.UpdateArticleRequest;
+import smvulweb.vulweb.dto.UpdateCommentRequest;
 import smvulweb.vulweb.repository.BoardRepository;
 import smvulweb.vulweb.repository.CommentRepository;
 
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @SpringBootTest
 @AutoConfigureMockMvc
-class CommntApiControllerTest {
+class CommentApiControllerTest {
     @Autowired
     protected MockMvc mockMvc;
 
@@ -41,30 +44,29 @@ class CommntApiControllerTest {
     @Autowired
     CommentRepository commentRepository;
 
+    private Article savedArticle;
+
     @BeforeEach
     public void mockMvcSetUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
                 .build();
         commentRepository.deleteAll();
+
+        final String articleTitle = "title";
+        final String articleContent = "content";
+        final String articleAuthor = "author";
+
+        savedArticle = boardRepository.save(Article.builder()
+                .title(articleTitle)
+                .content(articleContent)
+                .author(articleAuthor)
+                .build());
     }
 
     @DisplayName("addComment : 댓글 추가 성공")
     @Test
     public void addComment() throws Exception {
         //given
-        //게시글 작성
-        //게시글 하나 등록
-        final String articleUrl = "/api/articles";
-        final String articleTitle = "title";
-        final String articleContent = "content";
-        final String articleAuthor = "author";
-
-        Article savedArticle = boardRepository.save(Article.builder()
-                .title(articleTitle)
-                .content(articleContent)
-                .author(articleAuthor)
-                .build());
-
         //댓글 작성
         final String url = "/api/articles/{id}/comments";
         final String nickname = "nickname";
@@ -86,5 +88,62 @@ class CommntApiControllerTest {
         assertThat(comments.get(0).getNickname()).isEqualTo(nickname);
         assertThat(comments.get(0).getComment()).isEqualTo(comment);
 
+    }
+
+    @DisplayName("deleteComment : 댓글 삭제 성공")
+    @Test
+    public void deleteComment() throws Exception {
+        //given
+        final String nickname = "nickname";
+        final String commentContent = "comment";
+
+        Comment savedComment = commentRepository.save(Comment.builder()
+                .nickname(nickname)
+                .comment(commentContent)
+                .article(savedArticle)
+                .build());
+
+        //when
+        final String deleteUrl = "/api/comments/delete/{id}";
+        ResultActions result = mockMvc.perform(get(deleteUrl, savedComment.getId()));
+
+        //then
+        result.andExpect(status().isOk());
+
+        List<Comment> comments = commentRepository.findAll();
+
+        assertThat(comments.size()).isEqualTo(0);
+
+    }
+
+    @DisplayName("updateComment: 댓글 수정 성공")
+    @Test
+    public void updateComment() throws Exception {
+        //given
+        final String nickname = "nickname";
+        final String originalComment = "comment";
+
+        Comment savedComment = commentRepository.save(Comment.builder()
+                .nickname(nickname)
+                .comment(originalComment)
+                .article(savedArticle)
+                .build());
+
+        final String updateUrl = "/api/comments/update/{id}";
+        final String newComment = "new Comment";
+
+        UpdateCommentRequest request = new UpdateCommentRequest(newComment);
+
+        //when
+        ResultActions result = mockMvc.perform(get(updateUrl, savedComment.getId())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(request)));
+
+        //then
+        result.andExpect(status().isOk());
+
+        Comment comment = commentRepository.findById(savedComment.getId()).get();
+
+        assertThat(comment.getComment()).isEqualTo(newComment);
     }
 }
