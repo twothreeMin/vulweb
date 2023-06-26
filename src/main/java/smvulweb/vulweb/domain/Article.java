@@ -12,6 +12,13 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Article {
+    /**
+    * primary key(id)
+     * title : 제목
+     * content : 내용
+     * author : 글쓴이
+     * comments : 댓글(1:n)
+    * **/
         @Id // id 필드를 기본키로 지정
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "id", updatable = false)

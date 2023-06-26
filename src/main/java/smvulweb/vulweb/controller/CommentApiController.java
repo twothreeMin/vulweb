@@ -18,7 +18,7 @@ public class CommentApiController {
 
     private final CommentService commentService;
 
-    @PostMapping("/api/articles/{id}/comments")
+    @PostMapping("/api/article/{id}/comments")
     public ResponseEntity<String> addComment(@PathVariable Long id,
                                               @RequestBody AddCommentRequest request) {
         Comment savedComment = commentService.save(id, request);

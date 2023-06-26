@@ -52,7 +52,7 @@ class BoardApiControllerTest {
 
     @DisplayName("addArticle: 글 추가 성공")
     @Test
-    public void addArticle() throws Exception {
+    public void 요청_글생성() throws Exception {
         //given
         final String url = "/api/articles";
         final String title = "title";
@@ -79,7 +79,7 @@ class BoardApiControllerTest {
 
     @DisplayName("findAllArticles: 글 목록 조회 성공")
     @Test
-    public void findAllArticles() throws Exception {
+    public void 요청_글목록조회() throws Exception {
         //given
         final String url = "/api/articles";
         final String title = "title";
@@ -106,7 +106,7 @@ class BoardApiControllerTest {
 
     @DisplayName("findArticle: 글 조회 성공")
     @Test
-    public void findArticle() throws Exception {
+    public void 요청_글조회() throws Exception {
         //given
         final String url = "/api/article/{id}";
         final String title = "title";
@@ -131,7 +131,7 @@ class BoardApiControllerTest {
 
     @DisplayName("deleteArticle: 글 삭제 성공")
     @Test
-    public void deleteArticle() throws Exception {
+    public void 요청_글삭제() throws Exception {
         //given
         final String url = "/api/article/delete/{id}";
         final String title = "title";
@@ -156,7 +156,7 @@ class BoardApiControllerTest {
 
     @DisplayName("updateArticle: 글 수정 성공")
     @Test
-    public void updateArticle() throws Exception {
+    public void 요청_글수정() throws Exception {
         //given
         final String url = "/api/article/update/{id}";
         final String title = "title";

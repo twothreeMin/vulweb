@@ -65,10 +65,10 @@ class CommentApiControllerTest {
 
     @DisplayName("addComment : 댓글 추가 성공")
     @Test
-    public void addComment() throws Exception {
+    public void 요청_댓글생성() throws Exception {
         //given
         //댓글 작성
-        final String url = "/api/articles/{id}/comments";
+        final String url = "/api/article/{id}/comments";
         final String nickname = "nickname";
         final String comment = "comment";
         final AddCommentRequest userRequest = new AddCommentRequest(nickname, comment);
@@ -92,7 +92,7 @@ class CommentApiControllerTest {
 
     @DisplayName("deleteComment : 댓글 삭제 성공")
     @Test
-    public void deleteComment() throws Exception {
+    public void 요청_댓글삭제() throws Exception {
         //given
         final String nickname = "nickname";
         final String commentContent = "comment";
@@ -118,7 +118,7 @@ class CommentApiControllerTest {
 
     @DisplayName("updateComment: 댓글 수정 성공")
     @Test
-    public void updateComment() throws Exception {
+    public void 요청_댓글수정() throws Exception {
         //given
         final String nickname = "nickname";
         final String originalComment = "comment";
