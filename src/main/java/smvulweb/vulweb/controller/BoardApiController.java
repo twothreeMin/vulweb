@@ -6,32 +6,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import smvulweb.vulweb.ErrorResponse;
 import smvulweb.vulweb.domain.Article;
-import smvulweb.vulweb.dto.AddArticleRequest;
-import smvulweb.vulweb.dto.ArticleResponse;
-import smvulweb.vulweb.dto.UpdateArticleRequest;
+import smvulweb.vulweb.dto.article.AddArticleRequest;
+import smvulweb.vulweb.dto.article.ArticleResponse;
+import smvulweb.vulweb.dto.article.UpdateArticleRequest;
 import smvulweb.vulweb.service.BoardService;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/api")
 public class BoardApiController {
 
     private final BoardService boardService;
 
-    @GetMapping("/test")
-    public Map<String, Object> testHandler() {
-
-        Map<String, Object> res = new HashMap<>();
-        res.put("SUCCESS", true);
-        res.put("SUCCESS_TEXT", "Hello SpringBoot/React");
-
-        return res;
-    }
-    @PostMapping("/api/articles")
+    @PostMapping("/create/articles")
     public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
         Article savedArticle = boardService.save(request);
 
@@ -39,7 +30,7 @@ public class BoardApiController {
                 .body(savedArticle);
     }
 
-    @GetMapping("/api/articles")
+    @GetMapping("/articles")
     public ResponseEntity<List<ArticleResponse>> findAllArticles() {
         List<ArticleResponse> articles = boardService.findAll()
                 .stream()
@@ -50,7 +41,7 @@ public class BoardApiController {
                 .body(articles);
     }
 
-    @GetMapping("/api/article/{id}")
+    @GetMapping("/article/{id}")
     public ResponseEntity<?> findArticle(@PathVariable long id) {
         try {
             Article article = boardService.findById(id);
@@ -64,7 +55,7 @@ public class BoardApiController {
         }
     }
 
-    @GetMapping("/api/article/delete/{id}")
+    @GetMapping("/delete/article/{id}")
     public ResponseEntity<Void> deleteArticle(@PathVariable long id) {
         boardService.delete(id);
 
@@ -72,7 +63,7 @@ public class BoardApiController {
                 .build();
     }
 
-    @GetMapping("/api/article/update/{id}")
+    @GetMapping("/update/article/{id}")
     public ResponseEntity<Article> updateArticle(@PathVariable long id,
                                                  @RequestBody UpdateArticleRequest request) {
         Article updatedArticle = boardService.update(id, request);

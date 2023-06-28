@@ -1,4 +1,4 @@
-package smvulweb.vulweb.dto;
+package smvulweb.vulweb.dto.comment;
 
 import lombok.*;
 import smvulweb.vulweb.domain.Article;

@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import smvulweb.vulweb.domain.Article;
 import smvulweb.vulweb.domain.Comment;
-import smvulweb.vulweb.dto.AddCommentRequest;
-import smvulweb.vulweb.dto.UpdateCommentRequest;
+import smvulweb.vulweb.dto.comment.AddCommentRequest;
+import smvulweb.vulweb.dto.comment.UpdateCommentRequest;
 import smvulweb.vulweb.repository.BoardRepository;
 import smvulweb.vulweb.repository.CommentRepository;
 

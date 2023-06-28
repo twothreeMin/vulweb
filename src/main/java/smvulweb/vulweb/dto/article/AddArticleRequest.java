@@ -1,4 +1,4 @@
-package smvulweb.vulweb.dto;
+package smvulweb.vulweb.dto.article;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

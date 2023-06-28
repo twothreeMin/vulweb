@@ -1,8 +1,8 @@
-package smvulweb.vulweb.dto;
+package smvulweb.vulweb.dto.article;
 
 import lombok.Getter;
 import smvulweb.vulweb.domain.Article;
-import smvulweb.vulweb.domain.Comment;
+import smvulweb.vulweb.dto.comment.CommentResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -14,9 +14,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import smvulweb.vulweb.domain.Article;
 import smvulweb.vulweb.domain.Comment;
-import smvulweb.vulweb.dto.AddCommentRequest;
-import smvulweb.vulweb.dto.UpdateArticleRequest;
-import smvulweb.vulweb.dto.UpdateCommentRequest;
+import smvulweb.vulweb.dto.comment.AddCommentRequest;
+import smvulweb.vulweb.dto.comment.UpdateCommentRequest;
 import smvulweb.vulweb.repository.BoardRepository;
 import smvulweb.vulweb.repository.CommentRepository;
 

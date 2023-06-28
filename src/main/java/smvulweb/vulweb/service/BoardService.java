@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import smvulweb.vulweb.domain.Article;
-import smvulweb.vulweb.dto.AddArticleRequest;
-import smvulweb.vulweb.dto.UpdateArticleRequest;
+import smvulweb.vulweb.dto.article.AddArticleRequest;
+import smvulweb.vulweb.dto.article.UpdateArticleRequest;
 import smvulweb.vulweb.repository.BoardRepository;
 
 import java.util.List;
