@@ -17,3 +17,8 @@ spring:
   h2:
     console:
       enabled: true
+
+
+jwt:
+  issuer: sangmin.lee@cyberone.kr
+  secret_key: cyberone

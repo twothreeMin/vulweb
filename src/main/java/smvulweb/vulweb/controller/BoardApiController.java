@@ -22,7 +22,7 @@ public class BoardApiController {
 
     private final BoardService boardService;
 
-    @PostMapping("/create/articles")
+    @PostMapping("/create/article")
     public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
         Article savedArticle = boardService.save(request);
 

@@ -53,7 +53,7 @@ class BoardApiControllerTest {
     @Test
     public void 요청_글생성() throws Exception {
         //given
-        final String url = "/api/articles";
+        final String url = "/api/create/article";
         final String title = "title";
         final String content = "content";
         final String author = "author";
@@ -132,7 +132,7 @@ class BoardApiControllerTest {
     @Test
     public void 요청_글삭제() throws Exception {
         //given
-        final String url = "/api/article/delete/{id}";
+        final String url = "/api/delete/article/{id}";
         final String title = "title";
         final String content = "content";
         final String author = "author";
@@ -157,7 +157,7 @@ class BoardApiControllerTest {
     @Test
     public void 요청_글수정() throws Exception {
         //given
-        final String url = "/api/article/update/{id}";
+        final String url = "/api/update/article/{id}";
         final String title = "title";
         final String content = "content";
         final String author = "author";

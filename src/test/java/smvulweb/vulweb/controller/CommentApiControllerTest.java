@@ -103,7 +103,7 @@ class CommentApiControllerTest {
                 .build());
 
         //when
-        final String deleteUrl = "/api/comments/delete/{id}";
+        final String deleteUrl = "/api/delete/comment/{id}";
         ResultActions result = mockMvc.perform(get(deleteUrl, savedComment.getId()));
 
         //then
@@ -128,7 +128,7 @@ class CommentApiControllerTest {
                 .article(savedArticle)
                 .build());
 
-        final String updateUrl = "/api/comments/update/{id}";
+        final String updateUrl = "/api/update/comment/{id}";
         final String newComment = "new Comment";
 
         UpdateCommentRequest request = new UpdateCommentRequest(newComment);
