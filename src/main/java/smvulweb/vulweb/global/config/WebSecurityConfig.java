@@ -30,7 +30,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests()
-                    .antMatchers("/login", "/signup", "/member", "/api/**").permitAll()
+                    .antMatchers("/login", "/api/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                 .formLogin()
