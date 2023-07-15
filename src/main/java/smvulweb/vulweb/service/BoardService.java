@@ -15,8 +15,8 @@ import java.util.List;
 public class BoardService {
     private final BoardRepository boardRepository;
 
-    public Article save(AddArticleRequest request) {
-        return boardRepository.save(request.toEntity());
+    public Article save(AddArticleRequest request, String userName) {
+        return boardRepository.save(request.toEntity(userName));
     }
 
     public List<Article> findAll() {

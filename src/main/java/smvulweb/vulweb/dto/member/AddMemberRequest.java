@@ -7,9 +7,9 @@ import smvulweb.vulweb.domain.member.Authority;
 @Getter
 @Setter
 public class AddMemberRequest {
-    private String username;
+    private String email;
     private String password;
-    private String name;
+    private String nickname;
     private Authority authority;
 
 }

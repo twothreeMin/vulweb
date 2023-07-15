@@ -10,6 +10,11 @@ import smvulweb.vulweb.repository.RefreshTokenRepository;
 public class RefreshTokenService {
     private final RefreshTokenRepository refreshTokenRepository;
 
+    public RefreshToken saveRefreshToken(Long userId, String refreshToken) {
+        RefreshToken newToken = new RefreshToken(userId, refreshToken);
+        return refreshTokenRepository.save(newToken);
+    }
+
     public RefreshToken findByRefreshToken(String refreshToken) {
         return refreshTokenRepository.findByRefreshToken(refreshToken)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected token"));

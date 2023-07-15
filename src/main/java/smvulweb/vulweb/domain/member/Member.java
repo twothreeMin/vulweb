@@ -29,19 +29,19 @@ public class Member implements UserDetails {
      * role : 권한 (MANAGER, USER)
      **/
 
-    @Id // id 필드를 기본키로 지정
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column(name = "username", nullable = false, length = 30, unique = true) // 'title'이라는 not null 컬럼과 매핑
-    private String username;
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
-    @Column(name = "password", nullable = false, length = 80) // 'content'이라는 not null 컬럼과 매핑
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "name", nullable = false, length = 15)
-    private String name;
+    @Column(name = "nickname", unique = true)
+    private String nickname;
 
     @Column(name = "created_date")
     @CreatedDate
@@ -51,10 +51,10 @@ public class Member implements UserDetails {
     private Authority authority; //ROLE_USER, ROLE_MANAGER
 
     @Builder
-    public Member(String username, String password, String name, Authority authority) {
-        this.username = username;
+    public Member(String email, String password, String nickname, Authority authority) {
+        this.email = email;
         this.password = password;
-        this.name = name;
+        this.nickname = nickname;
         this.authority = authority;
     }
 
@@ -62,23 +62,23 @@ public class Member implements UserDetails {
         this.password = passwordEncoder.encode(password);
     }
 
-    public void updateName(String name) {
-        this.name = name;
+    public Member update(String nickname) {
+        this.nickname = nickname;
+
+        return this;
     }
 
-    public void encodePassword(PasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(password);
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + authority.name()));
+        return List.of(new SimpleGrantedAuthority("user"));
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
+
     @Override
     public String getPassword() {
         return password;
@@ -86,26 +86,22 @@ public class Member implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        //계정 만료 여부
-        return true; // true -> 만료되지 않음
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        //계정 잠금 확인
-        return true; //true -> 잠기지 않음
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        //패스워드가 만료 여부 확인
-        return true; // true -> 만료되지 않음
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        //계정이 사용 가능 여부 확인 로직
-        return true; // true -> 사용가능
+        return true;
     }
 
 

@@ -18,7 +18,16 @@ spring:
     console:
       enabled: true
 
-
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 245172190974-ad2gqc9pl4n9hhfnckbltd1rsi2fnp3p.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
 jwt:
   issuer: sangmin.lee@cyberone.kr
   secret_key: cyberone

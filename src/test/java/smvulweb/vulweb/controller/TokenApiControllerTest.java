@@ -64,9 +64,9 @@ class TokenApiControllerTest {
         final String url = "/api/token";
 
         Member testMember = memberRepository.save(Member.builder()
-                .username("test1")
+                .email("test1@test.com")
                 .password("test")
-                .name("lee sang min")
+                .nickname("lee sang min")
                 .build());
 
         String refreshToken = JwtFactory.builder()

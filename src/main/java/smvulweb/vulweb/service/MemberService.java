@@ -14,20 +14,26 @@ import smvulweb.vulweb.repository.MemberRepository;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     public Long save(AddMemberRequest dto) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
         return memberRepository.save(Member.builder()
-                .username(dto.getUsername())
-                .password(bCryptPasswordEncoder.encode(dto.getPassword()))
-                .name(dto.getName())
+                .email(dto.getEmail())
+                .password(encoder.encode(dto.getPassword()))
+                .nickname(dto.getNickname())
                 .authority(Authority.ROLE_USER)
                 .build()).getId();
     }
 
     public Member findById(Long memberId) {
         return memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+    }
+
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
     }
 

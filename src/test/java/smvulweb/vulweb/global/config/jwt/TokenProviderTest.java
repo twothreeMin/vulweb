@@ -32,14 +32,13 @@ class TokenProviderTest {
     @Test
     void generateToken() {
         // given
-        Member testMember = memberRepository.save(Member.builder()
-                .username("test1")
-                .password("test1!")
-                .name("leesangmin")
+        Member testUser = memberRepository.save(Member.builder()
+                .email("user@gmail.com")
+                .password("test")
                 .build());
 
         // when
-        String token = tokenProvider.generateToken(testMember, Duration.ofDays(14));
+        String token = tokenProvider.generateToken(testUser, Duration.ofDays(14));
 
         // then
         Long userId = Jwts.parser()
@@ -48,7 +47,7 @@ class TokenProviderTest {
                 .getBody()
                 .get("id", Long.class);
 
-        assertThat(userId).isEqualTo(testMember.getId());
+        assertThat(userId).isEqualTo(testUser.getId());
     }
 
     @DisplayName("validToken(): 만료된 토큰인 경우에 유효성 검증에 실패한다.")

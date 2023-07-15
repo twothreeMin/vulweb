@@ -16,8 +16,8 @@ public class MemberDetailService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     @Override
-    public Member loadUserByUsername(String username) {
-        return memberRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException((username)));
+    public Member loadUserByUsername(String email) {
+        return memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException((email)));
     }
 }

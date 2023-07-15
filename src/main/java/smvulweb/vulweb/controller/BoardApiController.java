@@ -11,6 +11,7 @@ import smvulweb.vulweb.dto.article.ArticleResponse;
 import smvulweb.vulweb.dto.article.UpdateArticleRequest;
 import smvulweb.vulweb.service.BoardService;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +24,8 @@ public class BoardApiController {
     private final BoardService boardService;
 
     @PostMapping("/create/article")
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
-        Article savedArticle = boardService.save(request);
+    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request, Principal principal) {
+        Article savedArticle = boardService.save(request, principal.getName());
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(savedArticle);
