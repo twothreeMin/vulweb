@@ -12,12 +12,17 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import smvulweb.vulweb.global.config.jwt.TokenProvider;
 import smvulweb.vulweb.global.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import smvulweb.vulweb.global.config.oauth.OAuth2SuccessHandler;
 import smvulweb.vulweb.global.config.oauth.OAuth2UserCustomService;
 import smvulweb.vulweb.repository.RefreshTokenRepository;
 import smvulweb.vulweb.service.MemberService;
+
+import java.util.Arrays;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
@@ -33,13 +38,14 @@ public class WebOAuthSecurityConfig {
     @Bean
     public WebSecurityCustomizer configure() {
         return (web) -> web.ignoring()
-                .requestMatchers(toH2Console())
-                .antMatchers("/img/**", "/css/**", "/js/**");
+                .requestMatchers(toH2Console());
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.cors().configurationSource(corsConfigurationSource())
+                .and()
+                .csrf().disable()
                 .httpBasic().disable()
                 .formLogin().disable()
                 .logout().disable();
@@ -100,4 +106,17 @@ public class WebOAuthSecurityConfig {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
+    //Cors설정
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
+        config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
+
 }

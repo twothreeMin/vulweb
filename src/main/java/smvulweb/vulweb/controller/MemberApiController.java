@@ -11,8 +11,8 @@ import smvulweb.vulweb.service.MemberService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collections;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/api/member")
@@ -26,9 +26,11 @@ public class MemberApiController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/signout")
     public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("signout 호출!!       " + response);
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(Collections.singletonMap("success", true));
+        //        return ResponseEntity.ok().build();
     }
 }

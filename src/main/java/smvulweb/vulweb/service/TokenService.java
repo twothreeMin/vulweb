@@ -29,4 +29,8 @@ public class TokenService {
         return tokenProvider.generateToken(member, Duration.ofHours(2));
     }
 
+    public boolean validToken(String token) {
+        return tokenProvider.validToken(token);
+    }
+
 }
