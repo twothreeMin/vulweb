@@ -20,6 +20,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         //요청을 바탕으로 유저 정보를 담은 객체 반환
         OAuth2User user = super.loadUser(userRequest);
         saveOrUpdate(user);
+        System.out.println(user);
         return user;
     }
 
@@ -28,12 +29,14 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         Map<String, Object> attributes = oAuth2User.getAttributes();
         String email = (String) attributes.get("email");
         String name = (String) attributes.get("name");
+        String picture_url = (String) attributes.get("picture"); //사진 저장은 AWS S3 스토리지 서비스 이용하기.
         Member member = memberRepository.findByEmail(email)
                 .map(entity -> entity.update(name))
                 .orElse(Member.builder()
                         .email(email)
                         .nickname(name)
                         .authority(Authority.ROLE_USER)
+                        .picture_url(picture_url)
                         .build());
 
         return memberRepository.save(member);

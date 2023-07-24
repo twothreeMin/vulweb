@@ -43,6 +43,9 @@ public class Member implements UserDetails {
     @Column(name = "nickname", unique = true)
     private String nickname;
 
+    @Column(name = "picture_url", length=1100)
+    private String picture_url;
+
     @Column(name = "created_date")
     @CreatedDate
     private LocalDateTime createdDate;
@@ -51,10 +54,11 @@ public class Member implements UserDetails {
     private Authority authority; //ROLE_USER, ROLE_MANAGER
 
     @Builder
-    public Member(String email, String password, String nickname, Authority authority) {
+    public Member(String email, String password, String nickname, String picture_url, Authority authority) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
+        this.picture_url = picture_url;
         this.authority = authority;
     }
 

@@ -108,7 +108,7 @@ public class WebOAuthSecurityConfig {
     }
 
 
-    //Cors설정
+    // Cors설정
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
