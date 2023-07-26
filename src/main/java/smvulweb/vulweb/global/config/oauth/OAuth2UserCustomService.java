@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import smvulweb.vulweb.domain.member.Authority;
 import smvulweb.vulweb.domain.member.Member;
+import smvulweb.vulweb.global.config.utils.CheckManager;
 import smvulweb.vulweb.repository.MemberRepository;
 
 import java.util.Map;
@@ -30,12 +31,14 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         String email = (String) attributes.get("email");
         String name = (String) attributes.get("name");
         String picture_url = (String) attributes.get("picture"); //사진 저장은 AWS S3 스토리지 서비스 이용하기.
+        Authority authority = CheckManager.checkIfManager(email) ? Authority.ROLE_MANAGER : Authority.ROLE_USER;
+
         Member member = memberRepository.findByEmail(email)
                 .map(entity -> entity.update(name))
                 .orElse(Member.builder()
                         .email(email)
                         .nickname(name)
-                        .authority(Authority.ROLE_USER)
+                        .authority(authority)
                         .picture_url(picture_url)
                         .build());
 
